@@ -1,20 +1,16 @@
 #!/usr/bin/env python3
-"""a python module to measure the execution time"""
-import time
+'''Task 2
+'''
 import asyncio
-async_comprehension = __import__('1-async_comprehension').async_comprehension
+import time
 
 
-async def measure_runtime() -> float:
-    """
-    measure_runtime - function execute async_com 4 times
-    Arguments:
-        nothing
-    Returns:
-        the total exection time required to complete the task
-    """
-    t_start = time.perf_counter()
-    task = [async_comprehension() for i in range(4)]
-    await asyncio.gather(*task)
-    t_end = time.perf_counter()
-    return (t_end - t_start)
+wait_n = __import__('1-concurrent_coroutines').wait_n
+
+
+def measure_time(n: int, max_delay: int) -> float:
+    '''Computes the average runtime of wait_n.
+    '''
+    start_time = time.time()
+    asyncio.run(wait_n(n, max_delay))
+    return (time.time() - start_time) / n
