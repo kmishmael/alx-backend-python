@@ -1,16 +1,17 @@
 #!/usr/bin/env python3
-""" a python module to returns 10 random numbers using async comprehension"""
+'''Task 1
+'''
+import asyncio
 from typing import List
-async_generator = __import__('0-async_generator').async_generator
 
 
-async def async_comprehension() -> List[float]:
-    """
-    async_comprehension- function to return 10 random numbers
-    Arguments:
-        no arguments
-    Returns:
-        10 random numbers
-    """
-    rslt = [i async for i in async_generator()]
-    return rslt
+wait_random = __import__('0-basic_async_syntax').wait_random
+
+
+async def wait_n(n: int, max_delay: int) -> List[float]:
+    '''Executes wait_random n times.
+    '''
+    wait_times = await asyncio.gather(
+        *tuple(map(lambda _: wait_random(max_delay), range(n)))
+    )
+    return sorted(wait_times)
